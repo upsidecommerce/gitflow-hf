@@ -63,6 +63,7 @@ usage() {
 	echo "   hotfix    Manage your hotfix branches."
 	echo "   push      Push the changes from your current branch (plus any new tags) back upstream."
 	echo "   pull      Pull upstream changes down into your master, develop, and current branches."
+	echo "   show      Show hubflow information from your .git/config file"
 	echo "   update    Pull upstream changes down into your master and develop branches."
 	echo "   version   Shows version information."
 	echo
