@@ -153,8 +153,8 @@ expand_nameprefix_arg() {
 
 	local expanded_name
 	local exitcode
-    track_repo=$(hubflow_track_repo "$NAME" "$FEATURE_PREFIX" "$ORIGIN")
-    expanded_name=$(hubflow_resolve_nameprefix "$NAME" "$FEATURE_PREFIX")
+	track_repo=$(hubflow_track_repo "$NAME" "$FEATURE_PREFIX" "$ORIGIN")
+	expanded_name=$(hubflow_resolve_nameprefix "$NAME" "$FEATURE_PREFIX")
 	exitcode=$?
 	case $exitcode in
 		0) NAME=$expanded_name
@@ -266,7 +266,7 @@ cmd_submit() {
 	# sanity checks
 	require_branch "$FEATURE_BRANCH"
 	require_clean_working_tree
-    require_github_origin_repo
+	require_github_origin_repo
 	require_remote_available
 	hubflow_fetch_latest_changes_from_origin
 
@@ -310,9 +310,9 @@ EOS
 	fi
 
 	# submit pull request to GitHub and
-    resp=$(github_post \
-         "/repos/$GITHUB_ORIGIN/pulls" \
-         "{\"title\":\"$PR_TITLE\",\"body\":\"$PR_DESC\",\"head\":\"$FEATURE_BRANCH\",\"base\":\"$BASE\"}")
+	resp=$(github_post \
+		 "/repos/$GITHUB_ORIGIN/pulls" \
+		 "{\"title\":\"$PR_TITLE\",\"body\":\"$PR_DESC\",\"head\":\"$FEATURE_BRANCH\",\"base\":\"$BASE\"}")
 
 	# did it succeed?
 	if echo "$resp" | grep "Validation Failed" > /dev/null ; then
@@ -330,11 +330,11 @@ EOS
 	fi
 
 	# parse Pull Request URL from response
-        PR_URL=$(echo $resp |
-            awk -F"," '{for(i=1;i<=NF;i++){if($i~/html_url/){print $i"\n"}}}' |
-            grep 'pull' |
-            awk -F"\":" '{print $2}' |
-            awk -F"\"" '{print $2}')
+	PR_URL=$(echo $resp |
+		awk -F"," '{for(i=1;i<=NF;i++){if($i~/html_url/){print $i"\n"}}}' |
+		grep 'pull' |
+		awk -F"\":" '{print $2}' |
+		awk -F"\"" '{print $2}')
 
 	if [ -z "$PR_URL" ]; then
 		die "Failed to create Pull Request"
