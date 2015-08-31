@@ -44,7 +44,6 @@
 require_git_repo
 require_hubflow_initialized
 hubflow_load_settings
-PREFIX=$(git config --get hubflow.prefix.feature)
 
 usage() {
 	echo "usage: git hf feature [list] [-v]"

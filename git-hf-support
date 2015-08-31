@@ -45,7 +45,6 @@
 require_git_repo
 require_hubflow_initialized
 hubflow_load_settings
-PREFIX=$(git config --get hubflow.prefix.support)
 
 usage() {
 	echo "usage: git hf support [list] [-v]"
@@ -64,7 +63,7 @@ cmd_list() {
 	local support_branches
 	local current_branch
 	local short_names
-	support_branches=$(echo "$(git_local_branches)" | grep "^$PREFIX")
+	support_branches=$(echo "$(git_local_branches)" | grep "^$SUPPORT_PREFIX")
 	if [ -z "$support_branches" ]; then
 		warn "No support branches exist."
                 warn ""
@@ -75,7 +74,7 @@ cmd_list() {
 		exit 0
 	fi
 	current_branch=$(git_current_branch)
-	short_names=$(echo "$support_branches" | sed "s ^$PREFIX  g")
+	short_names=$(echo "$support_branches" | sed "s ^$SUPPORT_PREFIX  g")
 
 	# determine column width first
 	local width=0
@@ -88,7 +87,7 @@ cmd_list() {
 
 	local branch
 	for branch in $short_names; do
-		local fullname=$PREFIX$branch
+		local fullname=$SUPPORT_PREFIX$branch
 		local base=$(git merge-base "$fullname" "$MASTER_BRANCH")
 		local master_sha=$(git rev-parse "$MASTER_BRANCH")
 		local branch_sha=$(git rev-parse "$fullname")
@@ -131,7 +130,7 @@ parse_args() {
 	# read arguments into global variables
 	VERSION=$1
 	BASE=$2
-	SUPPORT_BRANCH=$PREFIX$VERSION
+	SUPPORT_BRANCH=$SUPPORT_PREFIX$VERSION
 }
 
 parse_remote_name() {
@@ -142,7 +141,7 @@ parse_remote_name() {
 	# read arguments into global variables
 	REMOTE=$1
 	NAME=$2
-	SUPPORT_BRANCH=$PREFIX$NAME
+	SUPPORT_BRANCH=$SUPPORT_PREFIX$NAME
 }
 
 require_version_arg() {
@@ -174,12 +173,12 @@ expand_nameprefix_arg() {
 
 	local expanded_name
 	local exitcode
-    track_repo=$(hubflow_track_repo "$NAME" "$PREFIX" "$ORIGIN")
-    expanded_name=$(hubflow_resolve_nameprefix "$NAME" "$PREFIX")
+    track_repo=$(hubflow_track_repo "$NAME" "$SUPPORT_PREFIX" "$ORIGIN")
+    expanded_name=$(hubflow_resolve_nameprefix "$NAME" "$SUPPORT_PREFIX")
 	exitcode=$?
 	case $exitcode in
 		0) NAME=$expanded_name
-		   SUPPORT_BRANCH=$PREFIX$NAME
+		   SUPPORT_BRANCH=$SUPPORT_PREFIX$NAME
 		   ;;
 		*) exit 1 ;;
 	esac
@@ -188,7 +187,7 @@ expand_nameprefix_arg() {
 expand_nameprefix_arg_or_current() {
 	if [ "$NAME" != "" ]; then
 		expand_nameprefix_arg
-		require_branch "$PREFIX$NAME"
+		require_branch "$SUPPORT_PREFIX$NAME"
 	else
 		use_current_support_branch_name
 	fi
@@ -202,9 +201,9 @@ name_or_current() {
 
 use_current_support_branch_name() {
 	local current_branch=$(git_current_branch)
-	if startswith "$current_branch" "$PREFIX"; then
+	if startswith "$current_branch" "$SUPPORT_PREFIX"; then
 		SUPPORT_BRANCH=$current_branch
-		NAME=${BRANCH#$PREFIX}
+		NAME=${BRANCH#$SUPPORT_PREFIX}
 	else
 		warn "The current HEAD is not a support branch."
 		warn "Please specify a <name> argument."
