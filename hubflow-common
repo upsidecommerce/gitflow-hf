@@ -204,6 +204,33 @@ git_list_branches_of_type() {
 # hubflow specific common functionality
 #
 
+hubflow_get_base_branch() {
+    local base
+    base=$(git_config_get_branch $1 hubflowBase)
+
+    if [[ -n $base ]] ; then
+        echo $base
+        return
+    fi
+
+    # at this point, there is no base branch explicitly set, so we need
+    # to work out the base branch using the name of the branch
+    if hubflow_is_feature_branch ; then
+        echo $DEVELOP_BRANCH
+        return
+    fi
+
+    if hubflow_is_hotfix_branch ; then
+        echo $MASTER_BRANCH
+        return
+    fi
+
+    if hubflow_is_release_branch ; then
+        echo $DEVELOP_BRANCH
+        return
+    fi
+}
+
 # check if this repo has been inited for hubflow
 hubflow_has_master_configured() {
 	local master=$(git config --get hubflow.branch.master)
