@@ -53,6 +53,7 @@ usage() {
 	echo "       git hf feature diff [<name|nameprefix>]"
 	echo "       git hf feature rebase [-i] [<name|nameprefix>]"
 	echo "       git hf feature checkout <name> [-f]"
+	echo "       git hf feature co <name> [-f]"
 	echo "       git hf feature pull [-r] [<remote> [<name>]]"
 	echo "       git hf feature push [<remote> [<name>]]"
 	echo "       git hf feature cancel [-f] <name>"
