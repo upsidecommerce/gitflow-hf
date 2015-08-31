@@ -3,3 +3,8 @@ debian/*.substvars
 debian/*.debhelper.log
 debian/*/*
 .tags*
+tests/.storyplayer
+tests/composer.lock
+tests/storyplayer.log
+tests/tmp
+tests/vendor
