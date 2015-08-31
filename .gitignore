@@ -5,6 +5,7 @@ debian/*/*
 .tags*
 tests/.storyplayer
 tests/composer.lock
+tests/composer.phar
 tests/storyplayer.log
 tests/tmp
 tests/vendor
