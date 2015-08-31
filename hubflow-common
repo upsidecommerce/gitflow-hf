@@ -224,6 +224,8 @@ hubflow_has_prefixes_configured() {
 }
 
 hubflow_is_initialized() {
+    return 0
+
 	hubflow_has_master_configured                    && \
 	hubflow_has_develop_configured                   && \
 	[ "$(git config --get hubflow.branch.master)" !=    \
@@ -242,16 +244,16 @@ hubflow_is_support_branch() {
 # loading settings that can be overridden using git config
 hubflow_load_settings() {
 	export DOT_GIT_DIR=$(git rev-parse --git-dir 2>/dev/null)
-	export MASTER_BRANCH=$(git config --get hubflow.branch.master)
-	export DEVELOP_BRANCH=$(git config --get hubflow.branch.develop)
+	export MASTER_BRANCH=$(git config --get hubflow.branch.master || echo master)
+	export DEVELOP_BRANCH=$(git config --get hubflow.branch.develop || echo develop)
 	export ORIGIN=$(git config --get hubflow.origin || echo origin)
     export CURRENT_BRANCH=$(git_current_branch)
 
-    export FEATURE_PREFIX=$(git config --get hubflow.prefix.feature)
-    export RELEASE_PREFIX=$(git config --get hubflow.prefix.release)
-    export HOTFIX_PREFIX=$(git config --get hubflow.prefix.hotfix)
-    export SUPPORT_PREFIX=$(git config --get hubflow.prefix.support)
-    export VERSION_PREFIX=$(git config --get hubflow.prefix.versiontag)
+    export FEATURE_PREFIX=$(git config --get hubflow.prefix.feature || echo feature)
+    export RELEASE_PREFIX=$(git config --get hubflow.prefix.release || echo release)
+    export HOTFIX_PREFIX=$(git config --get hubflow.prefix.hotfix || echo hotfix)
+    export SUPPORT_PREFIX=$(git config --get hubflow.prefix.support || echo support)
+    export VERSION_PREFIX=$(git config --get hubflow.prefix.versiontag || echo '')
 }
 
 hubflow_change_branch() {
