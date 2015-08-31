@@ -237,6 +237,14 @@ hubflow_is_feature_branch() {
     $(git_current_branch | grep -q "^$FEATURE_PREFIX")
 }
 
+hubflow_is_hotfix_branch() {
+    $(git_current_branch | grep -q "^$HOTFIX_PREFIX")
+}
+
+hubflow_is_release_branch() {
+    $(git_current_branch | grep -q "^$RELEASE_PREFIX")
+}
+
 hubflow_is_support_branch() {
     $(git_current_branch | grep -q "^$SUPPORT_PREFIX")
 }
