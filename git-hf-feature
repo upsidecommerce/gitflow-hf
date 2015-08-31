@@ -539,16 +539,6 @@ cmd_rebase() {
 	git rebase $OPTS "$DEVELOP_BRANCH"
 }
 
-avoid_accidental_cross_branch_action() {
-	local current_branch=$(git_current_branch)
-	if [ "$FEATURE_BRANCH" != "$current_branch" ]; then
-		warn "Trying to pull from '$FEATURE_BRANCH' while currently on branch '$current_branch'."
-		warn "To avoid unintended merges, hubflow aborted."
-		return 1
-	fi
-	return 0
-}
-
 cmd_pull() {
 	git hf pull "$@"
 }
