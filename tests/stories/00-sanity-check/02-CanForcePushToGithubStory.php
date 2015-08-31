@@ -1,7 +1,7 @@
 <?php
 
 $story = newStoryFor("Hubflow")
-         ->inGroup("Initialisation")
+         ->inGroup("Sanity Checks")
          ->called("Can force push test repo to Github");
 
 $story->requiresStoryplayerVersion(2);
