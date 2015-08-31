@@ -35,5 +35,8 @@ fi
 # at this point, Storyplayer and all of its dependencies have been
 # successfully downloaded and installed
 #
+# we need to make sure the checked out copy of hubflow is in the path
+export PATH=$(cd .. ; pwd):$PATH
+
 # now we just need to run the tests
 vendor/bin/storyplayer "$@"
