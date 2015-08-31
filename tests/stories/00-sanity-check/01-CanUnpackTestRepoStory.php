@@ -1,7 +1,7 @@
 <?php
 
 $story = newStoryFor("Hubflow")
-         ->inGroup("Initialisation")
+         ->inGroup("Sanity Checks")
          ->called("Can unpack test repo");
 
 $story->requiresStoryplayerVersion(2);
