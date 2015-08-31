@@ -62,7 +62,7 @@ cmd_help() {
 
 cmd_base() {
 	CURRENT=$(git_current_branch)
-	BASE=$(git_config_get_branch $CURRENT hubflowBase)
+	BASE=$(hubflow_get_base_branch $CURRENT)
 
 	if [[ -z $BASE ]] ; then
 		exit 1
