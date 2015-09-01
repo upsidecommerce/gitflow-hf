@@ -2,6 +2,7 @@
 
 use Hubflow\Prose\ExpectsTestRepo;
 use Hubflow\Prose\FromTestRepo;
+use Hubflow\Prose\UsingHubflow;
 use Hubflow\Prose\UsingTestRepo;
 
 /**
@@ -18,6 +19,11 @@ function expectsTestRepo()
 function fromTestRepo()
 {
     return new FromTestRepo();
+}
+
+function usingHubflow($pathToRepo)
+{
+    return new UsingHubflow($pathToRepo);
 }
 
 /**

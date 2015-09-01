@@ -4,9 +4,11 @@ namespace Hubflow\Prose;
 
 class UsingHubflow
 {
-    public function __construct($st, $args)
+    protected $pathToRepo;
+
+    public function __construct($pathToRepo)
     {
-        $this->pathToRepo = $args[0];
+        $this->pathToRepo = $pathToRepo;
     }
 
     public function init()
