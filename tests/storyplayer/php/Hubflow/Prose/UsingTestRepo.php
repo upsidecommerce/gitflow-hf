@@ -112,10 +112,32 @@ class UsingTestRepo
         $log = usingLog()->startAction("force push the test repo up to Github");
 
         // push it
-        $path = fromTestRepo()->getPathToLocalRepo();
-        usingShell()->runCommand("cd {$path} && git push --force --all");
+        $path = realpath(fromTestRepo()->getPathToLocalRepo());
+        ForcePush::to($path, 'origin');
 
         // all done
         $log->endAction();
+    }
+
+    // ==================================================================
+    //
+    // Helpers
+    //
+    // ------------------------------------------------------------------
+
+    public function runCommand($command)
+    {
+        // what are we doing?
+        $log = usingLog()->startAction("run command '{$command}' in local Git repo");
+
+        // where is the git repo?
+        $path = realpath(fromTestRepo()->getPathToLocalRepo());
+
+        // run it
+        $result = usingShell()->runCommand("cd {$path} && {$command}");
+
+        // all done
+        $log->endAction();
+        return $result;
     }
 }
