@@ -58,6 +58,32 @@ class UsingTestRepo
         $log->endAction("removed");
     }
 
+    public function cloneRemoteRepo()
+    {
+        // where is origin pointing?
+        $origin = fromStoryplayer()->get("testrepo.origin");
+
+        // what are doing?
+        $log = usingLog()->startAction("clone test repo from '{$origin}'");
+
+        // remove the repo if it already exists
+        usingTestRepo()->removeLocalRepo();
+
+        // where is it going?
+        $path = fromTestRepo()->getPathToLocalRepo();
+
+        // create our target and clone into it
+        usingSHell()->runCommand("mkdir -p $path");
+        usingShell()->runCommand("cd $path && git clone '{$origin}' .");
+
+        // make sure everything is there
+        if (!IsGitRepo::check($path)) {
+            throw new E5xx_ActionFailed(__METHOD__, "test repo has not cloned");
+        }
+
+        $log->endAction();
+    }
+
     // ==================================================================
     //
     // Github commands
