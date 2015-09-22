@@ -27,6 +27,11 @@ Getting Started
 
 See our tutorial website to learn more about the [GitFlow](http://datasift.github.com/gitflow/IntroducingGitFlow.html) branching model and [how to use the HubFlow tools](http://datasift.github.com/gitflow/GitFlowForGitHub.html).
 
+Running Tests
+-------------
+
+Hubflow has a testsuite in a [separate repo](https://github.com/ganbarodigital/hubflow-tests). This allows us to run the same testsuite against multiple versions of Hubflow.
+
 Changelog
 ---------
 
