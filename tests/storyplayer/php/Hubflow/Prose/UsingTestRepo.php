@@ -2,7 +2,9 @@
 
 namespace Hubflow\Prose;
 
-use GanbaroDigital\Filesystem\Checks\IsFolder;
+use GanbaroDigital\Git\Repo\Checks\IsGitRepo;
+use GanbaroDigital\Git\Repo\Editors\AddRemote;
+use GanbaroDigital\Git\Repo\Transfers\ForcePush;
 use Prose\E5xx_ActionFailed;
 
 class UsingTestRepo
@@ -29,7 +31,7 @@ class UsingTestRepo
         usingShell()->runCommand("cd $parentPath && tar -zxf resources/test-repo.tgz");
 
         // make sure everything is there
-        if (!IsFolder::checkString($path)) {
+        if (!IsGitRepo::check($path)) {
             throw new E5xx_ActionFailed(__METHOD__, "test repo has not unpacked");
         }
 
@@ -71,8 +73,8 @@ class UsingTestRepo
         $origin = fromStoryplayer()->get("testrepo.origin");
 
         // set it
-        $path = fromTestRepo()->getPathToLocalRepo();
-        usingShell()->runCommand("cd {$path} && git remote add origin {$origin}");
+        $path = realpath(fromTestRepo()->getPathToLocalRepo());
+        AddRemote::to($path, 'origin', $origin);
 
         // all done
         $log->endAction();

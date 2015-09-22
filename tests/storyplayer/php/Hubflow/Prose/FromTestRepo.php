@@ -27,7 +27,7 @@ class FromTestRepo
 
         // does it?
         $path = fromTestRepo()->getPathToLocalRepo();
-        $retval = IsFolder::checkString($path);
+        $retval = IsGitRepo::check($path);
 
         // all done
         if ($retval) {
