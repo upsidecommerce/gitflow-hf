@@ -1,6 +1,6 @@
 <?php
 
-namespace Hubflow\Prose;
+namespace GanbaroDigital\ST2\TestRepo;
 
 use GanbaroDigital\Filesystem\Checks\IsFolder;
 use Prose\E5xx_ExpectFailed;

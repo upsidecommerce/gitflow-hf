@@ -1,6 +1,6 @@
 <?php
 
-namespace Hubflow\Prose;
+namespace GanbaroDigital\ST2\GitRepo;
 
 use GanbaroDigital\Git\Repo\Checks\IsGitRepo;
 use Prose\E5xx_ExpectFailed;

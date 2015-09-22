@@ -1,6 +1,6 @@
 <?php
 
-namespace Hubflow\Prose;
+namespace GanbaroDigital\ST2\TestRepo;
 
 use GanbaroDigital\Git\Repo\Checks\IsGitRepo;
 use GanbaroDigital\Git\Repo\Editors\AddRemote;

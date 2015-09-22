@@ -1,6 +1,6 @@
 <?php
 
-namespace Hubflow\Prose;
+namespace GanbaroDigital\ST2\GitRepo;
 
 class UsingGitRepo
 {
