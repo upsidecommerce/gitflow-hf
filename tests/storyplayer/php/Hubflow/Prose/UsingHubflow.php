@@ -14,9 +14,9 @@ class UsingHubflow
     public function init()
     {
         // what are we doing?
-        $log = usingLog()->startAction("{$path}: git hf init");
+        $log = usingLog()->startAction("{$this->pathToRepo}: git hf init");
 
         // do it
-        usingShell()->runCommand("cd {$path} && git hf init");
+        usingShell()->runCommand("cd {$this->pathToRepo} && git hf init");
     }
 }
